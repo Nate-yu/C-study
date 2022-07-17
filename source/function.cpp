@@ -1,7 +1,9 @@
 /*函数声明*/
 int isPrime(int n); // 判断质数
 int isPalindromic(int n); // 判断回文数
+int isPalindromString(char str[]); // 判断回文字符串
 int binaryToDecimal(int number); // 二进制转十进制
+char * decimalToHexadecimal(int number); // 十进制转十六进制
 double factorial(int n); // 求n的阶乘
 int isNarcissisticNumber(int n); // 判断水仙花数
 long productOfDigit(long n); // 求正整数各位上的数字之积
@@ -25,6 +27,23 @@ int isPalindromic(int n) {
 		i/=10;
 	}
 	if(j==n) {
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+int isPalindromString(char str[]) {
+	int len = strlen(str);
+	// i和j分别指向首尾两个字符
+	int i,j;
+
+	for(i = 0, j = len-1; i < j; i++,j--) {
+		if(str[i] != str[j]) {
+			break;
+		}
+	}
+	if(i >= j) {
 		return 1;
 	} else {
 		return 0;
@@ -55,6 +74,35 @@ int binaryToDecimal(int number) {
 	} else {
 		return decimalNum;
 	}
+}
+
+char * decimalToHexadecimal(int number) {
+	static char hex[10];
+	for(int i = 0; number != 0; i++) {
+		hex[i] = number % 16;
+		number /= 16;
+		if(hex[i] > 10) {
+			switch(hex[i]) {
+				case 10: hex[i] = 'A'; break;
+				case 11: hex[i] = 'B'; break;
+				case 12: hex[i] = 'C'; break;
+				case 13: hex[i] = 'D'; break;
+				case 14: hex[i] = 'E'; break;
+				case 15: hex[i] = 'F'; break;
+			}
+		} else {
+			hex[i] += 48; // '0'的ASSIC码为48
+		}
+	}
+	int len = strlen(hex);
+	// 反转字符数组
+	for(int i = 0, j = len - 1; i < len - 1; i++,j--) {
+		char temp;
+		temp = hex[i];
+		hex[i] = hex[j];
+		hex[j] = temp;
+	}
+	return hex;
 }
 
 // 求n的阶乘
