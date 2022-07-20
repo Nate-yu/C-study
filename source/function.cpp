@@ -4,6 +4,7 @@ int isPalindromic(int n); // 判断回文数
 int isPalindromString(char str[]); // 判断回文字符串
 int binaryToDecimal(int number); // 二进制转十进制
 char * decimalToHexadecimal(int number); // 十进制转十六进制
+int hexadecimalToDecimal(char hex[]); // 十六进制转十进制
 double factorial(int n); // 求n的阶乘
 int isNarcissisticNumber(int n); // 判断水仙花数
 long productOfDigit(long n); // 求正整数各位上的数字之积
@@ -103,6 +104,36 @@ char * decimalToHexadecimal(int number) {
 		hex[j] = temp;
 	}
 	return hex;
+}
+
+int hexadecimalToDecimal(char hex[]) {
+	// 注：hex必须是字符串的形式才能用strlen求长度
+	// 求存储十六进制数数组hex的长度
+	int len = strlen(hex);
+	// 返回的十进制数与暂存数据的数组arr
+	int num = 0,arr[30];
+
+	for(int i = 0; i < len; ++i) {
+		if(hex[i] >= '0' && hex[i] <= '9') { // 若数组元素为数字，则将其转换为int型数据传给arr
+			arr[i] = hex[i] - 48; // '0'(ASSIC) = 48;
+		} else { // 数组元素为字母，则将其转换为大写后进行数据类型的转化
+			switch(toupper(hex[i])) {
+				case 'A': arr[i] = 10; break;
+				case 'B': arr[i] = 11; break;
+				case 'C': arr[i] = 12; break;
+				case 'D': arr[i] = 13; break;
+				case 'E': arr[i] = 14; break;
+				case 'F': arr[i] = 15; break;
+				default: break;
+			}
+		}
+	}
+	// 开始进行十进制数的计算
+	for(int i = 1, j = len - 1; j >= 0; j--,i*=16) {
+		num += arr[j]*i;
+	}
+	// 返回结果
+	return num;
 }
 
 // 求n的阶乘
