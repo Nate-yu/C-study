@@ -170,7 +170,10 @@ long productOfDigit(long n) {
 	return product;
 }
 
-/*注意：不能在函数里求数组长度，因为传入的数组参数只是一个地址，指向数组第一个元素*/
+/* 
+ * 逆向冒泡排序
+ * 注意：不能在函数里求数组长度，因为传入的数组参数只是一个地址，指向数组第一个元素
+ */
 void bubbleSort(int arr[],int len) {
 	for(int i = 0; i < len-1; ++i) {
 		// 完成对一个数字的排序
@@ -201,6 +204,7 @@ void reverse(int arr[],int len) {
 	}
 }
 
+// 折半查找
 void bisearch(int arr[],int len,int num) {
 	int left = 0,right = len-1;
 	int mid;
