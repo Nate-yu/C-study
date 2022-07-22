@@ -8,6 +8,9 @@ int hexadecimalToDecimal(char hex[]); // 十六进制转十进制
 double factorial(int n); // 求n的阶乘
 int isNarcissisticNumber(int n); // 判断水仙花数
 long productOfDigit(long n); // 求正整数各位上的数字之积
+void bubbleSort(int arr[],int len); // 逆向冒泡排序
+void reverse(int arr[]); // 逆序数组后输出
+void bisearch(int arr[],int len,int num); // 折半查找
 
 /*函数定义*/
 int isPrime(int n) {
@@ -165,4 +168,57 @@ long productOfDigit(long n) {
 		n /= 10;
 	}
 	return product;
+}
+
+/*注意：不能在函数里求数组长度，因为传入的数组参数只是一个地址，指向数组第一个元素*/
+void bubbleSort(int arr[],int len) {
+	for(int i = 0; i < len-1; ++i) {
+		// 完成对一个数字的排序
+		for(int j = 0; j < len-i-1; ++j) {
+			if(arr[j] < arr[j+1]) {
+				int temp = arr[j];
+				arr[j] = arr[j+1];
+				arr[j+1] = temp;
+			}
+		}
+	}
+}
+
+void reverse(int arr[],int len) {
+	for(int i = 0; i < len/2; i++) {
+		int j = len-1-i;
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
+
+	for(int k = 0; k < len; k++) {
+		if(k == len-1) {
+			printf("%d\n", arr[k]);
+		} else {
+			printf("%d ", arr[k]);
+		}
+	}
+}
+
+void bisearch(int arr[],int len,int num) {
+	int left = 0,right = len-1;
+	int mid;
+	while(left <= right) {
+		mid = (left+right)/2;
+		if(arr[mid] == num) {
+			break;
+		} else {
+			if(arr[mid] > num) {
+				right = mid-1;
+			} else {
+				left = mid+1;
+			}
+		}
+	}
+	if(arr[mid] == num) {
+		printf("%d is NO.%d\n",num,mid);
+	} else {
+		printf("Not found!");
+	}
 }
