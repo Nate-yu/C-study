@@ -311,11 +311,225 @@ int func(int num)
 
 # 选择结构程序设计
 
+> C 语言把任何**非零**和**非空**的值假定为 **true**，把**零**或 **null** 假定为 **false**。
 
+## if语句
+
+```c
+if(boolean_expression)
+{
+   /* 如果布尔表达式为真将执行的语句 */
+}
+```
+
+## if...else 语句
+
+```c
+if(boolean_expression)
+{
+   /* 如果布尔表达式为真将执行的语句 */
+}
+else
+{
+   /* 如果布尔表达式为假将执行的语句 */
+}
+```
+
+> 一个 **if** 语句后可跟一个可选的 **else if...else** 语句，这可用于测试多种条件。
+
+- 一个 if 后可跟零个或一个 else，else 必须在所有 else if 之后。
+- 一个 if 后可跟零个或多个 else if，else if 必须在 else 之前。
+- 一旦某个 else if 匹配成功，其他的 else if 或 else 将不会被测试。
+
+## switch 语句
+
+> 一个 **switch** 语句允许测试一个变量等于多个值时的情况。每个值称为一个 case，且被测试的变量会对每个 **switch case** 进行检查。
+
+具体语法：
+
+```c
+switch(expression){
+    case constant-expression  :
+       statement(s);
+       break; /* 可选的 */
+    case constant-expression  :
+       statement(s);
+       break; /* 可选的 */
+  
+    /* 您可以有任意数量的 case 语句 */
+    default : /* 可选的 */
+       statement(s);
+}
+```
+
+**switch** 语句必须遵循以下的规则：
+
+- **switch** 语句中的 **expression** 是一个常量表达式，必须是一个**整型**或**枚举类型**。
+- 在一个 switch 中可以有任意数量的 case 语句。每个 case 后跟一个要比较的值和一个冒号。
+- case 的 **constant-expression** 必须与 switch 中的变量具有相同的数据类型，且必须是一个常量或字面量。
+- 当被测试的变量等于 case 中的常量时，case 后跟的语句将被执行，直到遇到 **break** 语句为止。
+- 当遇到 **break** 语句时，switch 终止，控制流将跳转到 switch 语句后的下一行。
+- 不是每一个 case 都需要包含 **break**。如果 case 语句不包含 **break**，控制流将会 **继续** 后续的 case，直到遇到 break 为止。
+- 一个 **switch** 语句可以有一个可选的 **default** case，出现在 switch 的结尾。default case 可用于在上面所有 case 都不为真时执行一个任务。default case 中的 **break** 语句不是必需的。
+
+## ? : 运算符(三元运算符)
+
+用来替代 **if...else** 语句。它的一般形式如下：
+
+```c
+Exp1 ? Exp2 : Exp3;
+```
+
+其中，Exp1、Exp2 和 Exp3 是表达式。? 表达式的值是由 Exp1 决定的。如果 Exp1 为真，则计算 Exp2 的值，结果即为整个表达式的值。如果 Exp1 为假，则计算 Exp3 的值，结果即为整个表达式的值。
+
+![img](https://gitee.com/nate-yu/img-repository/raw/master/img/Conditional-Statement-in-C-Programming-Lanuage-Ternary-Operator.png)
 
 # 循环控制
 
+## 循环类型
 
+### while 循环
+
+> 当给定条件为真时，重复语句或语句组。它会在执行循环主体之前测试条件。
+
+```c
+while(condition)
+{
+   statement(s);
+}
+```
+
+**condition** 可以是任意的表达式，当为任意**非零值**时都为 true。当条件为 true 时执行循环。 当条件为 false（零值） 时，退出循环，程序流将继续执行紧接着循环的下一条语句。
+
+在这里，**statement(s)** 可以是一个单独的语句，也可以是几个语句组成的代码块。
+
+*while* 循环的关键点是循环**可能一次都不会执行**。当条件为 false 时，会跳过循环主体，直接执行紧接着 while 循环的下一条语句。
+
+### for 循环
+
+> 多次执行一个语句序列，简化管理循环变量的代码。
+
+```c
+for ( init; condition; increment )
+{
+   statement(s);
+}
+```
+
+for循环控制流
+
+1. **init** 会首先被执行，且只会执行一次。这一步允许您声明并初始化任何循环控制变量。您也可以不在这里写任何语句，只要有一个分号出现即可。
+2. 接下来，会判断 **condition**。如果为真，则执行循环主体。如果为假，则不执行循环主体，且控制流会跳转到紧接着 for 循环的下一条语句。
+3. 在执行完 for 循环主体后，控制流会跳回上面的 **increment** 语句。该语句允许您**更新**循环控制变量。该语句可以留空，只要在条件后有一个分号出现即可。
+4. 条件再次被判断。如果为真，则执行循环，这个过程会不断重复（循环主体，然后增加步值，再然后重新判断条件）。在条件变为假时，for 循环终止。
+
+### do...while 循环
+
+> 不像 **for** 和 **while** 循环，它们是在循环头部测试循环条件。在 C 语言中，**do...while** 循环是在循环的尾部检查它的条件。
+>
+> **do...while** 循环与 while 循环类似，但是 do...while 循环会确保至少执行一次循环。
+
+```c
+do
+{
+   statement(s);
+    
+}while( condition );
+```
+
+注意：条件表达式出现在循环的尾部，所以循环中的 statement(s) 会在条件被测试之前至少执行一次。
+
+如果条件为真，控制流会跳转回上面的 do，然后重新执行循环中的 statement(s)。这个过程会不断重复，直到给定条件变为假为止。
+
+## 循环控制语句
+
+### break 语句
+
+> 终止**循环**或 **switch** 语句，程序流将继续执行紧接着循环或 switch 的下一条语句。
+
+用法：
+
+1. 当 **break** 语句出现在一个循环内时，循环会立即终止，且程序流将继续执行紧接着循环的下一条语句。
+2. 它可用于终止 **switch** 语句中的一个 case。
+3. 如果使用的是嵌套循环，break 语句会停止执行最内层的循环，然后开始执行该块之后的下一行代码。
+
+![img](https://gitee.com/nate-yu/img-repository/raw/master/img/c-break-statement-works.jpg)
+
+### continue 语句
+
+> 告诉一个循环体立刻停止本次循环迭代，重新开始下次循环迭代。
+
+**continue**不是强制终止，continue 会跳过当前循环中的代码，强迫开始下一次循环。
+
+对于 **for** 循环，**continue** 语句执行后自增语句仍然会执行。对于 **while** 和 **do...while** 循环，**continue** 语句重新执行条件判断语句。
+
+![img](https://gitee.com/nate-yu/img-repository/raw/master/img/c-continue-statement-works.jpg)
+
+### goto 语句
+
+> 将控制转移到被标记的语句。 **goto** 语句允许把控制无条件转移到同一函数内的被标记的语句。
+
+![img](https://gitee.com/nate-yu/img-repository/raw/master/img/goto.png)
+
+## 实例代码
+
+### 使用do while 求算术平方根
+
+```c
+#include <stdio.h>
+
+double DoSqrt(double z) {
+    double a=1;
+    double b=0;
+    double c=0;
+    do {
+        if(b*b<z) {
+            b+=a;
+        } else {
+            c=b;
+            b-=a;
+            a/=10;
+        }
+    } while(a>0.000001);
+
+    return (b+c)/2;
+}
+
+int main(){
+    double x, y;
+    printf("请输入一个数字:");
+    scanf("%lf", &x);
+    if(x<0){
+        printf("输入错误。");
+    } else {
+        y=DoSqrt(x);
+        printf("%g 的算数平方根为: %g.\n", x, y);
+    }
+
+    return 0;
+}
+```
+
+### 100以内的素数
+
+```c
+#include<stdio.h>
+#include<math.h>
+int main(){
+    int i,j;
+    printf("100以内的素数有：\n");
+    for(i=2;i<100;i++){
+        for(j=2;j<sqrt(i);j++){
+            if(i%j==0){
+            	break;
+            }
+        }
+            if(j>sqrt(i)){
+                printf("%d,\t",i);
+            }
+    }
+}
+```
 
 # 数组
 
