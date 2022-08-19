@@ -689,6 +689,83 @@ return_type function_name( parameter list );
 
 ​	默认情况下，C 语言使用*传值调用*方法来传递参数。一般来说，这意味着函数内的代码不会改变用于调用函数的实际参数。
 
+## 递归
+
+> 递归指的是在函数的定义中使用函数自身的方法。
+
+![img](https://gitee.com/nate-yu/img-repository/raw/master/img/recursion_0.png)
+
+### 数的阶乘
+
+使用递归求给定数的阶乘
+
+```c
+#include <stdio.h>
+ 
+double factorial(unsigned int i)
+{
+   if(i <= 1) {
+      return 1;
+   }
+   return i * factorial(i - 1);
+}
+int  main()
+{
+    int i = 15;
+    printf("%d 的阶乘为 %f\n", i, factorial(i));
+    return 0;
+}
+```
+
+运行结果：
+
+```c
+15 的阶乘为 1307674368000.000000
+```
+
+不使用递归求阶乘源码：[C-study/function.cpp at main · Nate-yu/C-study (github.com)](https://github.com/Nate-yu/C-study/blob/main/source/function.cpp)
+
+### 斐波那契数列
+
+```c
+#include <stdio.h>
+ 
+int fibonaci(int i)
+{
+   if(i == 0) {
+      return 0;
+   }
+   if(i == 1) {
+      return 1;
+   }
+   return fibonaci(i-1) + fibonaci(i-2);
+}
+ 
+int  main()
+{
+    int i;
+    for (i = 0; i < 10; i++) {
+       printf("%d\t\n", fibonaci(i));
+    }
+    return 0;
+}
+```
+
+运行结果：
+
+```
+0    
+1    
+1    
+2    
+3    
+5    
+8    
+13    
+21    
+34
+```
+
 # 指针
 
 > 指针也就是内存地址，指针变量是用来存放内存地址的变量。就像其他变量或常量一样，您必须在使用指针存储其他变量地址之前，对其进行声明。
@@ -1006,6 +1083,18 @@ Simple2 u1, u2[20], *u3;
 
 > 对结构体变量可以在定义时指定初始值。
 
+```c
+struct Books
+{
+   char  title[50];
+   char  author[50];
+   char  subject[100];
+   int   book_id;
+} book = {"C 语言", "RUNOOB", "编程语言", 123456};
+```
+
+
+
 ### 访问结构成员
 
 ​	为了访问结构的成员，使用**成员访问运算符（.）**。成员访问运算符是结构变量名称和我们要访问的结构成员之间的一个句号。可以使用 **struct** 关键字来定义结构类型的变量。
@@ -1248,3 +1337,86 @@ size_t fwrite(const void *ptr, size_t size_of_elements,
 ```
 
 这两个函数都是用于存储块的读写，通常是数组或结构体。
+
+# 排序算法
+
+## 冒泡排序
+
+> 冒泡排序（英语：Bubble Sort）是一种简单的排序算法。它重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序（如从大到小、首字母从A到Z）错误就把他们交换过来。
+
+### 过程演示
+
+![img](https://gitee.com/nate-yu/img-repository/raw/master/img/Bubble_sort_animation.gif)
+
+### 实例代码
+
+```c
+#include <stdio.h>
+void bubble_sort(int arr[], int len) {
+    int i, j, temp;
+    for (i = 0; i < len - 1; i++)
+        for (j = 0; j < len - 1 - i; j++)
+            if (arr[j] > arr[j + 1]) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+}
+int main() {
+    int arr[] = { 22, 34, 3, 32, 82, 55, 89, 50, 37, 5, 64, 35, 9, 70 };
+    int len = (int) sizeof(arr) / sizeof(*arr);
+    bubble_sort(arr, len);
+    int i;
+    for (i = 0; i < len; i++)
+        printf("%d ", arr[i]);
+    return 0;
+}
+```
+
+## 选择排序
+
+> 选择排序（Selection sort）是一种简单直观的排序算法。它的工作原理如下。首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。
+
+### 过程演示
+
+![img](https://gitee.com/nate-yu/img-repository/raw/master/img/Selection_sort_animation.gif)
+
+![img](https://gitee.com/nate-yu/img-repository/raw/master/img/Selection-Sort-Animation.gif)
+
+## 实例代码
+
+```c
+void selection_sort(int a[], int len) 
+{
+    int i,j,temp;
+ 
+    for (i = 0 ; i < len - 1 ; i++) 
+    {
+        int min = i;                  // 记录最小值，第一个元素默认最小
+        for (j = i + 1; j < len; j++)     // 访问未排序的元素
+        {
+            if (a[j] < a[min])    // 找到目前最小值
+            {
+                min = j;    // 记录最小值
+            }
+        }
+        if(min != i)
+        {
+            temp=a[min];  // 交换两个变量
+            a[min]=a[i];
+            a[i]=temp;
+        }
+        /* swap(&a[min], &a[i]);  */   // 使用自定义函数交換
+    }
+}
+ 
+/*
+void swap(int *a,int *b) // 交换两个变量
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+*/
+```
+
