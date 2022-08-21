@@ -859,8 +859,6 @@ int * myFunction()
 
 C 语言不支持在调用函数时返回局部变量的地址，除非定义局部变量为 **static** 变量.
 
-
-
 # 预处理命令
 
 > **C 预处理器**不是编译器的组成部分，但是它是编译过程中一个单独的步骤。简言之，C 预处理器只不过是一个文本替换工具而已，它们会指示编译器在实际编译之前完成所需的预处理。
@@ -1017,8 +1015,6 @@ int square(int x) {
 #define MAX(x,y) ((x) > (y) ? (x) : (y))
 ```
 
-
-
 # 结构体与共用体
 
 ## 结构体
@@ -1093,8 +1089,6 @@ struct Books
 } book = {"C 语言", "RUNOOB", "编程语言", 123456};
 ```
 
-
-
 ### 访问结构成员
 
 ​	为了访问结构的成员，使用**成员访问运算符（.）**。成员访问运算符是结构变量名称和我们要访问的结构成员之间的一个句号。可以使用 **struct** 关键字来定义结构类型的变量。
@@ -1122,6 +1116,122 @@ struct_pointer = &Book1;
 ```c
 struct_pointer->title;
 ```
+
+## 单链表
+
+### 与数组比较
+
+![img](https://gitee.com/nate-yu/img-repository/raw/master/img/20190127225140115.png)
+
+### 单链表概述
+
+> 在链表中有一个头指针变量，这个指针变量保存一个地址，通过这个地址来找到这个链表，头指针节点指向第一个节点，在链表中每个节点包含两个部分：数据部分和指针部分。虽然结构体不能含有与本身类型相同的结构，但是可以含有之相同类型结构的指针，这种定义是链表的基础，链表中每一项都包含在何处能找到下一项的信息。而最后一个节点的指针指向必须为空NULL，从链表的原理来看不用担心链表的长度会超出范围这种问题。
+
+![微信截图_20220821170931](https://gitee.com/nate-yu/img-repository/raw/master/img/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20220821170931.png)
+
+### 单链表使用
+
+#### 创建结点
+
+```c
+typedef struct Node
+{
+	int data;				//数据域
+	struct Node* next;	//指针域(指向节点的指针）
+}Node;
+typedef struct Node *LinkList;
+```
+
+#### 创建单链表
+
+##### 头插法
+
+算法思路：
+
+1. 声明一个指针p用于不断生成新结点
+2. 初始化一个空链表L
+3. 让L的头结点的指针指向NULL，即建立一个带头结点的单链表
+4. 循环：
+   - 生成一个新结点并赋值给p
+   - 随机生成一个数字赋值给p->data
+   - 将p插入到头结点与前一结点之间
+
+算法实现：
+
+```c
+/*随机产生n个元素的值，建立带表头结点的单链线性表L（头插法,栈）*/
+void CreateListHead(LinkList *L,int n) {
+	LinkList p;
+	srand(time(0));
+	*L = (LinkList)malloc(sizeof(Node));
+	(*L)->next = NULL; // 建立一个带头结点的单链表
+	for(int i = 0; i < n; i++) {
+		p = (LinkList)malloc(sizeof(Node)); // 生成新结点
+		p->data = rand()%100+1; // 随机生成100以内的数字
+		p->next = (*L)->next; // 将L的后继结点（头结点）赋值给p（新结点）的后继
+		(*L)->next = p; // 插入到表头
+	}
+}
+
+```
+
+##### 尾插法
+
+```c
+/*随机产生n个元素的值，建立带表头结点的单链线性表L（尾插法,队列）*/
+void CreateListTail(LinkList *L, int n) {
+	LinkList p,tail;
+	srand(time(0));
+	*L = (LinkList)malloc(sizeof(Node));
+	tail = *L; // tail为指向尾部的结点
+	for(int i = 0; i < n; i++) {
+		p = (Node *) malloc(sizeof(Node));
+		p->data = rand() % 100 +1;
+		tail->next = p; // 将表尾终端结点的指针指向新结点
+		tail = p; // 将当前的新结点定义为表尾终端结点
+	}
+	tail->next = NULL; // 循环结束后，将当前结点的指针域置空，表示当前链表结束
+}
+```
+
+#### 指定位置插入结点
+
+算法思路：
+
+1. 声明一个指针p指向链表头结点，初始化j从1开始
+2. 当j<i时，遍历链表，让p的指针向后移动，不断指向下一个结点，j累加1
+3. 若到链表末尾p为空，则说明第i个结点不存在
+4. 否则说明查找成功，在系统中生成一个空结点s
+5. 将数据元素e赋值给s->data
+6. 单链表的插入标准语句：`s->next = p->next; p->next = s;`
+7. 注意：上述语句顺序不能调转
+
+算法实现：
+
+```c
+/*在L中第i个结点位置之前(即在第i个位置插入数据)插入新的数据元素e，L的长度加1*/
+bool ListInsert(LinkList *L, int i, int e) {
+	int j;
+	LinkList p,s;
+	p = *L;
+	j = 1;
+	while(p && j < i) {
+		p = p->next;
+		++j;
+	}
+	if (!p || j > i)
+		return false;
+	s = (LinkList)malloc(sizeof(Node)); // 生成新结点
+	s->data = e;
+
+	/*开始插入新结点*/
+	s->next = p->next; // 将p的后继结点赋值给s的后继
+	p->next = s; // 将s赋值给p的后继
+	return true;
+}
+```
+
+
 
 ## 共用体
 
@@ -1383,7 +1493,7 @@ int main() {
 
 ![img](https://gitee.com/nate-yu/img-repository/raw/master/img/Selection-Sort-Animation.gif)
 
-## 实例代码
+### 实例代码
 
 ```c
 void selection_sort(int a[], int len) 
