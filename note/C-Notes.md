@@ -1213,8 +1213,8 @@ void CreateListTail(LinkList *L, int n) {
 bool ListInsert(LinkList *L, int i, int e) {
 	int j;
 	LinkList p,s;
-	p = *L;
-	j = 1;
+	p = *L; // p指向头结点
+	j = 1; // j代表有数据的第一个结点的
 	while(p && j < i) {
 		p = p->next;
 		++j;
