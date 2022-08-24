@@ -748,3 +748,396 @@ int checkArmstrongNumber(int number)
 371 不是素数
 371 是 水仙花数。
 ```
+
+## 杨辉三角
+
+```c
+#include <stdio.h>
+int main()
+{
+    int rows, coef = 1, space, i, j;
+ 
+    printf("行数: ");
+    scanf("%d",&rows);
+ 
+    for(i=0; i<rows; i++)
+    {
+        // 空格数
+        for(space=1; space <= rows-i; space++)
+            printf("  ");
+ 
+        // 循环输出数据
+        for(j=0; j <= i; j++)
+        {
+            if (j==0 || i==0)
+                coef = 1;
+            else
+                coef = coef*(i-j+1)/j;
+ 
+            printf("%4d", coef);
+        }
+        printf("\n");
+    }
+ 
+    return 0;
+}
+```
+
+```c
+           1
+         1   1
+       1   2   1
+     1   3   3    1
+   1  4    6   4   1
+ 1  5   10   10  5   1 
+```
+
+## 计算一个数是否可为两个素数之和
+
+```c
+#include <stdio.h>
+ 
+int checkPrime(int n);
+int main()
+{
+    int n, i, flag = 0;
+ 
+    printf("输入正整数: ");
+    scanf("%d", &n);
+ 
+    for(i = 2; i <= n/2; ++i)
+    {
+        // 检测判断
+        if (checkPrime(i) == 1)
+        {
+            if (checkPrime(n-i) == 1)
+            {
+                printf("%d = %d + %d\n", n, i, n - i);
+                flag = 1;
+            }
+ 
+        }
+    }
+ 
+    if (flag == 0)
+        printf("%d 不能分解为两个素数。", n);
+ 
+    return 0;
+}
+ 
+// 判断素数
+int checkPrime(int n)
+{
+    int i, isPrime = 1;
+ 
+    for(i = 2; i <= n/2; ++i)
+    {
+        if(n % i == 0)
+        {
+            isPrime = 0;
+            break;
+        }  
+    }
+ 
+    return isPrime;
+}
+```
+
+输出结果为：
+
+```c
+输入正整数: 34
+34 = 3 + 31
+34 = 5 + 29
+34 = 11 + 23
+34 = 17 + 17
+```
+
+## 二进制与十进制相互转换
+
+### 二进制转换为十进制
+
+```c
+#include <stdio.h>
+#include <math.h>
+ 
+int convertBinaryToDecimal(long long n);
+ 
+int main()
+{
+    long long n;
+    printf("输入一个二进制数: ");
+    scanf("%lld", &n);
+    printf("二进制数 %lld 转换为十进制为 %d", n, convertBinaryToDecimal(n));
+    return 0;
+}
+ 
+int convertBinaryToDecimal(long long n)
+{
+    int decimalNumber = 0, i = 0, remainder;
+    while (n!=0)
+    {
+        // 取二进制数的最后一位
+        remainder = n%10;
+        // 去掉最后一位
+        n /= 10;
+        // 转换为十进制
+        decimalNumber += remainder*pow(2,i);
+        ++i;
+    }
+    return decimalNumber;
+}
+```
+
+输出结果为：
+
+```c
+输入一个二进制数: 110110111
+二进制数 110110111 转换为十进制为 439
+```
+
+### 十进制转换为二进制
+
+```c
+#include <stdio.h>
+#include <math.h>
+ 
+long long convertDecimalToBinary(int n);
+ 
+int main()
+{
+    int n;
+    printf("输入一个十进制数: ");
+    scanf("%d", &n);
+    printf("十进制数 %d 转换为二进制位 %lld", n, convertDecimalToBinary(n));
+    return 0;
+}
+ 
+long long convertDecimalToBinary(int n)
+{
+    long long binaryNumber = 0;
+    int remainder, i = 1, step = 1;
+ 
+    while (n!=0)
+    {
+        remainder = n%2;
+        printf("Step %d: %d/2, 余数 = %d, 商 = %d\n", step++, n, remainder, n/2);
+        n /= 2;
+        binaryNumber += remainder*i;
+        i *= 10;
+    }
+    return binaryNumber;
+}
+```
+
+输出结果为：
+
+```
+输入一个十进制数: 100
+Step 1: 100/2, 余数 = 0, 商 = 50
+Step 2: 50/2, 余数 = 0, 商 = 25
+Step 3: 25/2, 余数 = 1, 商 = 12
+Step 4: 12/2, 余数 = 0, 商 = 6
+Step 5: 6/2, 余数 = 0, 商 = 3
+Step 6: 3/2, 余数 = 1, 商 = 1
+Step 7: 1/2, 余数 = 1, 商 = 0
+十进制数 100 转换为二进制位 1100100
+```
+
+## 八进制与十进制相互转换
+
+### 十进制转换为八进制
+
+```c
+#include <stdio.h>
+#include <math.h>
+ 
+int convertDecimalToOctal(int decimalNumber);
+int main()
+{
+    int decimalNumber;
+ 
+    printf("输入一个十进制数: ");
+    scanf("%d", &decimalNumber);
+ 
+    printf("十进制数 %d 转换为八进制为 %d", decimalNumber, convertDecimalToOctal(decimalNumber));
+ 
+    return 0;
+}
+ 
+int convertDecimalToOctal(int decimalNumber)
+{
+    int octalNumber = 0, i = 1;
+ 
+    while (decimalNumber != 0)
+    {
+        octalNumber += (decimalNumber % 8) * i;
+        decimalNumber /= 8;
+        i *= 10;
+    }
+ 
+    return octalNumber;
+}
+```
+
+输出结果为：
+
+```c
+输入一个十进制数: 78
+十进制数 78 转换为八进制为 116
+```
+
+### 八进制转换为十进制
+
+```c
+#include <stdio.h>
+#include <math.h>
+ 
+long long convertOctalToDecimal(int octalNumber);
+int main()
+{
+    int octalNumber;
+ 
+    printf("输入一个八进制数: ");
+    scanf("%d", &octalNumber);
+ 
+    printf("八进制数 %d  转换为十进制为 %lld", octalNumber, convertOctalToDecimal(octalNumber));
+ 
+    return 0;
+}
+ 
+long long convertOctalToDecimal(int octalNumber)
+{
+    int decimalNumber = 0, i = 0;
+ 
+    while(octalNumber != 0)
+    {
+        decimalNumber += (octalNumber%10) * pow(8,i);
+        ++i;
+        octalNumber/=10;
+    }
+ 
+    i = 1;
+ 
+    return decimalNumber;
+}
+```
+
+输出结果为：
+
+```c
+输入一个八进制数: 116
+八进制数 116  转换为十进制为 78
+```
+
+## 字符串翻转
+
+```c
+#include <stdio.h>
+void reverseSentence();
+ 
+int main()
+{
+    printf("输入一个字符串: ");
+    reverseSentence();
+    return 0;
+}
+ 
+void reverseSentence()
+{
+    char c;
+    scanf("%c", &c);
+ 
+    if( c != '\n')
+    {
+        // 递归实现
+        reverseSentence();
+        // 遇到回车后从最后一个字符开始打印
+        printf("%c",c);
+    }
+}
+```
+
+输出结果为：
+
+```c
+输入一个字符串: runoob
+boonur
+```
+
+## 矩阵转置
+
+```c
+#include <stdio.h>
+ 
+int main()
+{
+    int a[10][10], transpose[10][10], r, c, i, j;
+    printf("输入矩阵的行与列: ");
+    scanf("%d %d", &r, &c);
+ 
+    // 存储矩阵的元素
+    printf("\n输入矩阵元素:\n");
+    for(i=0; i<r; ++i)
+        for(j=0; j<c; ++j)
+        {
+            printf("输入元素 a%d%d: ",i+1, j+1);
+            scanf("%d", &a[i][j]);
+        }
+ 
+    // 显示矩阵 a[][] 
+    printf("\n输入矩阵: \n");
+    for(i=0; i<r; ++i)
+        for(j=0; j<c; ++j)
+        {
+            printf("%d  ", a[i][j]);
+            if (j == c-1)
+                printf("\n");
+        }
+ 
+    // 转换
+    for(i=0; i<r; ++i)
+        for(j=0; j<c; ++j)
+        {
+            transpose[j][i] = a[i][j];
+        }
+ 
+    // 显示转换后的矩阵 a
+    printf("转置后矩阵:\n");
+    for(i=0; i<c; ++i)
+        for(j=0; j<r; ++j)
+        {
+            printf("%d  ",transpose[i][j]);
+            if(j==r-1)
+                printf("\n");
+        }
+ 
+    return 0;
+}
+```
+
+输出结果为：
+
+```
+输入矩阵的行与列: 2 3
+
+输入矩阵元素:
+输入元素 a11: 2
+输入元素 a12: 3
+输入元素 a13: 4
+输入元素 a21: 5
+输入元素 a22: 6
+输入元素 a23: 4
+
+输入矩阵: 
+2  3  4  
+
+5  6  4  
+
+转换后矩阵:
+2  5  
+
+3  6  
+
+4  4  
+```
