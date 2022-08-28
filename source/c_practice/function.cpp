@@ -15,7 +15,7 @@ void bisearch(int arr[],int len,int num); // 折半查找
 /*函数定义*/
 int isPrime(int n) {
 	int k;
-	for(k=2;k<n-1;k++){
+	for(k=2;k<sqrt(n);k++){
 		if(n%k==0){
 			return 0;
 		}

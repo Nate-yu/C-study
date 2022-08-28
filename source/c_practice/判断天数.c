@@ -8,12 +8,12 @@ int main()
     int monthday[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
     printf("please enter year, month and day, fomat: year,month,day(2015,12,10)\n");
     scanf("%d,%d,%d",&year,&month,&day);  // 格式为：2015,12,10
-    if (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
-    {
+    // 判断闰年
+    if (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0)) {
         monthday[1] =29;
     }
-    for (int i = 0; i < month-1; i++)
-    {
+    // 计算天数
+    for (int i = 0; i < month-1; i++) {
         sumday += monthday[i];
     }
     sumday += day;
