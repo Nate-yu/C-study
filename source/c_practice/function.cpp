@@ -147,6 +147,17 @@ double factorial(int n) {
 	}
 	return fac;
 }
+// 
+double fact(int j)
+{
+    double sum;
+    if(j==0){
+        sum=1;
+    } else {
+        sum=j*fact(j-1);
+    }
+    return sum;
+}
 
 // 判断水仙花数
 int isNarcissisticNumber(int n) {
