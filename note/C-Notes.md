@@ -1503,7 +1503,7 @@ size_t fwrite(const void *ptr, size_t size_of_elements,
 
 ### 过程演示
 
-![img](https://gitee.com/nate-yu/img-repository/raw/master/img/Bubble_sort_animation.gif)
+![a6bb0ee8f34c498fae73436f84c2ca56](https://gitee.com/nate-yu/img-repository/raw/master/img/a6bb0ee8f34c498fae73436f84c2ca56.gif)
 
 ### 实例代码
 
@@ -1511,7 +1511,9 @@ size_t fwrite(const void *ptr, size_t size_of_elements,
 #include <stdio.h>
 void bubble_sort(int arr[], int len) {
     int i, j, temp;
+    // i表示要循环len-1趟
     for (i = 0; i < len - 1; i++)
+        // 由于每一趟冒泡排序后会确定一个最大的数，所以每一趟的比较次数递减
         for (j = 0; j < len - 1 - i; j++)
             if (arr[j] > arr[j + 1]) {
                 temp = arr[j];
@@ -1536,9 +1538,7 @@ int main() {
 
 ### 过程演示
 
-![img](https://gitee.com/nate-yu/img-repository/raw/master/img/Selection_sort_animation.gif)
-
-![img](https://gitee.com/nate-yu/img-repository/raw/master/img/Selection-Sort-Animation.gif)
+![请添加图片描述](https://img-blog.csdnimg.cn/a74d0e0266104a37b02c463eeb46daff.gif)
 
 ### 实例代码
 
@@ -1546,24 +1546,25 @@ int main() {
 void selection_sort(int a[], int len) 
 {
     int i,j,temp;
- 
+ 	// i为当前位置
     for (i = 0 ; i < len - 1 ; i++) 
     {
-        int min = i;                  // 记录最小值，第一个元素默认最小
-        for (j = i + 1; j < len; j++)     // 访问未排序的元素
+        int min = i; // 记录最小值，第一个元素默认最小
+        for (j = i + 1; j < len; j++) // 访问未排序的元素
         {
-            if (a[j] < a[min])    // 找到目前最小值
+            if (a[j] < a[min]) // 找到目前最小值
             {
-                min = j;    // 记录最小值
+                min = j; // 记录最小值的下标
             }
         }
-        if(min != i)
+        
+        if(min != i) // 当记录的最小值下标与当前下标不一样时，交换二者，使最小值位于当前位置
         {
-            temp=a[min];  // 交换两个变量
+            temp=a[min]; // 交换两个变量
             a[min]=a[i];
             a[i]=temp;
         }
-        /* swap(&a[min], &a[i]);  */   // 使用自定义函数交換
+        /* swap(&a[min], &a[i]);  */ // 使用自定义函数交換
     }
 }
  
@@ -1583,7 +1584,7 @@ void swap(int *a,int *b) // 交换两个变量
 
 ### 过程演示
 
-![img](https://gitee.com/nate-yu/img-repository/raw/master/img/Insertion_sort_animation.gif)
+![10143b7517b44f44a876129b212776a1](https://gitee.com/nate-yu/img-repository/raw/master/img/10143b7517b44f44a876129b212776a1.gif)
 
 ### 实例代码
 
@@ -1591,7 +1592,8 @@ void swap(int *a,int *b) // 交换两个变量
 void insertion_sort(int arr[], int len){
     int i,j,temp;
     for (i=1;i<len;i++){
-        temp = arr[i];
+        temp = arr[i]; // tempc
+        // 从后往前比较
         for (j=i;j>0 && arr[j-1]>temp;j--) {
             arr[j] = arr[j-1];
         }
