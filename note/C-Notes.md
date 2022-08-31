@@ -1503,7 +1503,7 @@ size_t fwrite(const void *ptr, size_t size_of_elements,
 
 ### 过程演示
 
-![a6bb0ee8f34c498fae73436f84c2ca56](https://gitee.com/nate-yu/img-repository/raw/master/img/a6bb0ee8f34c498fae73436f84c2ca56.gif)
+![冒泡排序](https://img-blog.csdnimg.cn/5e8ea01093fb4cf99718b564192f46b3.gif)
 
 ### 实例代码
 
@@ -1547,20 +1547,20 @@ void selection_sort(int a[], int len)
 {
     int i,j,temp;
  	// i为当前位置
-    for (i = 0 ; i < len - 1 ; i++) 
-    {
-        int min = i; // 记录最小值，第一个元素默认最小
-        for (j = i + 1; j < len; j++) // 访问未排序的元素
-        {
-            if (a[j] < a[min]) // 找到目前最小值
-            {
-                min = j; // 记录最小值的下标
+    for (i = 0 ; i < len - 1 ; i++) {
+        // 记录最小值，第一个元素默认最小
+        int min = i; 
+        // j为当前元素的后面的元素，访问未排序的元素
+        for (j = i + 1; j < len; j++) {
+            // 找到目前最小值
+            if (a[j] < a[min]) {
+                // 记录最小值的下标
+                min = j; 
             }
         }
-        
-        if(min != i) // 当记录的最小值下标与当前下标不一样时，交换二者，使最小值位于当前位置
-        {
-            temp=a[min]; // 交换两个变量
+        // 当记录的最小值下标与当前下标不一样时，交换二者，使最小值位于当前位置
+        if(min != i) {
+            temp=a[min]; 
             a[min]=a[i];
             a[i]=temp;
         }
@@ -1580,7 +1580,7 @@ void swap(int *a,int *b) // 交换两个变量
 
 ## 插入排序
 
-> 插入排序（英语：Insertion Sort）是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。插入排序在实现上，通常采用in-place排序（即只需用到 O(1)的额外空间的排序），因而在从后向前扫描过程中，需要反复把已排序元素逐步向后挪位，为最新元素提供插入空间。
+> 插入排序（英语：Insertion Sort）是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中**从后向前扫描**，找到相应位置并插入。插入排序在实现上，通常采用in-place排序（即只需用到 O(1)的额外空间的排序），因而在从后向前扫描过程中，需要反复把已排序元素逐步向后挪位，为最新元素提供插入空间。
 
 ### 过程演示
 
@@ -1590,14 +1590,26 @@ void swap(int *a,int *b) // 交换两个变量
 
 ```c
 void insertion_sort(int arr[], int len){
-    int i,j,temp;
-    for (i=1;i<len;i++){
-        temp = arr[i]; // tempc
-        // 从后往前比较
-        for (j=i;j>0 && arr[j-1]>temp;j--) {
-            arr[j] = arr[j-1];
+    // 当数组只有一个元素时，不进行排序
+    if(len < 2) return;
+    
+    int i; // 需要排序元素的计数器
+    int j; // 插入排序时，需要后移的元素的计数器
+    int temp; // 当前需要排序的元素的值
+    
+    // 从第二个元素开始
+    for (i=1;i<len;i++) { 
+        // 待排序元素
+        temp = arr[i]; 
+        
+        // 从已排好序数据的最右边开始，把大于当前待排序元素的元素后移，即从后往前比较
+        for (j=i-1;j>=0; j--) {
+            if(arr[j] <= temp) break;
+            arr[j+1] = arr[j];
         }
-        arr[j] = temp;
+        
+        // 插入当前排序元素
+        arr[j+1] = temp;
     }
 }
 ```
