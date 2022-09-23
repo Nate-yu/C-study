@@ -4,8 +4,7 @@
 
 int main(int argc, char const *argv[])
 {
-	char s[] = "hhh,iiii";
-	s[3] = 0;
-	cout<<s;
+	int a = 3, b = 4, c = 5;
+	cout<<(!(a>b) && !c);
 	return 0;
 }
