@@ -183,3 +183,27 @@
 
 
 
+# 第三章 选择结构程序设计习题
+
+1. 有以下程序：
+
+   ```c
+   #include<stdio.h>
+   int main(int argc, char const *argv[])
+   {
+   	int i = 1, j = 2, k = 3;
+   	if(i++==1 && (++j==3||k++==3))
+   		cout<<i<<j<<k;
+   	return 0;
+   }
+   ```
+
+   输出结果：
+
+   ```markdown
+   233
+   原因：`k++==3`w
+   ```
+
+   
+
