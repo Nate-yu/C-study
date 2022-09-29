@@ -29,7 +29,7 @@ int main() {
 	}
 	printf("avg = %.2f\nnum = %d\nmax = %d\n",avg,num,max);
 	printf("grades which is sorted: \n");
-	for(int j = 0; j < i; j++) {
+	for(int j = 0; j < len; j++) {
 		printf("%d ",grade[j]);
 	}
 	return 0;
