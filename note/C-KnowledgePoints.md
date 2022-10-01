@@ -216,5 +216,47 @@
    7. C程序中的#include和#define行均不是C语句
    8. 除逗号运算符外，赋值运算符优先级最低
 
+# 第七章 数组
+
+1. 以下程序
+
+   ```c
+   #include <stdio.h>
+   
+   void fun(int a[][4],int b[4]) {
+   	for(int i = 0; i < 4; ++i) {
+   		b[i] = a[i][i];
+   	}
+   }
+   
+   int main(int argc, char const *argv[])
+   {
+   	int x[][4] = {{1,2,3},{4},{5,6,7,8},{9,10}},y[4];
+   	fun(x,y);
+   	for(int i = 0; i < 4; ++i) {
+   		printf("%d,",y[i]);
+   	}
+   	printf("\n");
+   	return 0; 
+   }
+   ```
+
+   x二维数组中初始化之后的值如下：
+
+   ```markdown
+   1 2 3 0
+   4 0 0 0
+   5 6 7 8 
+   9 10 0 0
+   ```
+
+   故将x数组对角线的元素赋值给y数组后的输出结果为：
+
+   ```markdown
+   1,0,7,0,
+   ```
+
+   
+
 
 
