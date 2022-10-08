@@ -256,6 +256,27 @@
    1,0,7,0,
    ```
 
+# 第八章 指针
+
+   1. 将字符串形式的八进制数转换成十进制数
+
+   ```c
+   #include "header.h" // 自定义头文件
+   /*将字符串形式的八进制数转换成十进制数*/
+   int main(int argc, char const *argv[])
+   {
+   	int n;
+   	char s[6],*p=s;
+   	gets(p);
+   	n = *p-'0';
+   	while(*++p != '\0') {
+   		n = n*8+*p-'0';
+   	}
+   	cout<<n<<endl;	
+   	return 0; 
+   }
+   ```
+
    
 
 
