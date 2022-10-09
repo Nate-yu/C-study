@@ -1507,6 +1507,14 @@ size_t fwrite(const void *ptr, size_t size_of_elements,
 
 这两个函数都是用于存储块的读写，通常是数组或结构体。
 
+## fseek()函数
+
+- 函数名: fseek()
+- 功能: 重定位流上的文件指针
+- 用法: int fseek(FILE *stream, long offset, int fromwhere);
+- 描 述: 函数设置文件指针stream的位置。如果执行成功，stream将指向以fromwhere为基准，偏移offset个字节的位置。如果执行失败(比如offset超过文件自身大小)，则不改变stream指向的位置。
+- 返回值: 成功，返回0，否则返回其他值。
+
 # 排序算法
 
 ## 冒泡排序
