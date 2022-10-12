@@ -256,6 +256,73 @@
 
 ## 填空题
 
+1. `pow(2.8, sqrt(double(x)))`值的数据类型为：double
+
+2. 用$\frac{pai}{4}$ =  $(-1)^n\sum_{i=0}^n \frac{1}{2*i+1}$ 求pai的近似值
+
+   ```c
+   #include<stdio.h>
+   #include<math.h>
+   int main() 
+   {
+       int s = 1;;
+       float n = 1.0,t = 1,pai = 0;
+       while(fabs(t) >= 1e-6) {
+           pai = pai + t;
+           n = n + 2.0;
+           s = -s;
+           t = s/n;
+       }
+       pai = pai / 4;
+       printf("%f",pai);
+       return 0;
+   }    
+   ```
+
+3. 求阶乘的累加和 S = $\sum_{i=0}^{n} i!$
+
+   ```c
+   #include<stdio.h>
+   long f(int n) {
+       long s = 1;
+       for(int i = 1; i <= n; i++) {
+           s = s*i;
+       }
+       return s;
+   }
+   
+   int main()
+   {
+       long s;
+       int n;
+       scanf("%d",&n);
+       s = 0;
+       for(int i = 0; i <= n; i++) {
+           s = s + f(i);
+       }
+       printf("s=%ld\n",s);
+       return 0;
+   }
+   ```
+
+## 程序分析
+
+不开辟第三方变量而交换数据
+
+```c
+int main()
+{
+    int a = 3,b = 4;
+    a = a^b;
+    b = a^b;
+    a = a^b;
+    printf("%d %d",a,b);
+    return 0;
+}
+```
+
+# 2020 A
+
 
 
 # 第三章 选择结构程序设计习题
