@@ -40,10 +40,13 @@ int main(int argc, char const *argv[])
 	rewind(fpc);
 
 	// 把c文件中的字符串取出覆盖a文件
-	while(!feof(fpc)) {
+	/*while(!feof(fpc)) {
 		ch = fgetc(fpc);
 		fputc(ch,fpa);
-	}
+	}*/
+	char *str;
+	str = fgets(fpc);
+	fputs(str,fpa);
 
 	fclose(fpc);
 	fclose(fpb);
