@@ -7,6 +7,7 @@
  */
 int main(int argc, char const *argv[])
 {
+	// 数据定义与初始化
 	FILE *fpa, *fpb, *fpc;
 	char ch;
 	if((fpa = fopen("a.txt","r+")) == NULL) {
@@ -17,12 +18,15 @@ int main(int argc, char const *argv[])
 		printf("无法找到b文件！");
 		exit(0);
 	}
-
 	fpc = fopen("c.txt","w+");
+
 	// 先以a文件为主，把a，b两个文件的字符交叉放入c文件中
 	while(!feof(fpa)) {
+		// 从a文件中取字符放到c文件
 		ch = fgetc(fpa);
 		fputc(ch,fpc);
+		
+		// 从b文件中取字符放到c文件
 		if(!feof(fpb)) {
 			ch = fgetc(fpb);
 			fputc(ch,fpc);
