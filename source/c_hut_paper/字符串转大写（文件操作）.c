@@ -15,13 +15,12 @@ int main(int argc, char const *argv[])
 	FILE *fp = fopen("test.txt","w+");
 
 	// 开始在写入文件时进行字符转换
-	while(*p != '!') {
+	while(*p++ != '!') {
 		if(*p >= 'a' && *p <= 'z') {
 			fputc(*p - 32, fp);
 		} else {
 			fputc(*p, fp);
 		}
-		p++;
 	}
 	
 	rewind(fp);
