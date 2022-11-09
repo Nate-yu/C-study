@@ -20,6 +20,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <malloc.h>
+#include <time.h>
 #include "function.cpp"
 
 using namespace std;

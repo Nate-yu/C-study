@@ -1170,16 +1170,16 @@ typedef struct Node *LinkList;
 
 ```c
 /*随机产生n个元素的值，建立带表头结点的单链线性表L（头插法,栈）*/
-void CreateListHead(LinkList *L,int n) {
+void CreateListHead(LinkList &L,int n) {
 	LinkList p;
 	srand(time(0));
-	*L = (LinkList)malloc(sizeof(Node));
-	(*L)->next = NULL; // 建立一个带头结点的单链表
+	L = (LinkList)malloc(sizeof(Node));
+	L->next = NULL; // 建立一个带头结点的单链表
 	for(int i = 0; i < n; i++) {
 		p = (LinkList)malloc(sizeof(Node)); // 生成新结点
 		p->data = rand()%100+1; // 随机生成100以内的数字
-		p->next = (*L)->next; // 将L的后继结点（头结点）赋值给p（新结点）的后继
-		(*L)->next = p; // 插入到表头
+		p->next = L->next; // 将L的后继结点（头结点）赋值给p（新结点）的后继
+		L->next = p; // 插入到表头
 	}
 }
 
@@ -1203,13 +1203,13 @@ void CreateListHead(LinkList *L,int n) {
 
 ```c
 /*随机产生n个元素的值，建立带表头结点的单链线性表L（尾插法,队列）*/
-void CreateListTail(LinkList *L, int n) {
+void CreateListTail(LinkList &L, int n) {
 	LinkList p,tail;
 	srand(time(0));
-	*L = (LinkList)malloc(sizeof(Node));
-	tail = *L; // tail为指向尾部的结点
+	L = (LinkList)malloc(sizeof(Node));
+	tail = L; // tail为指向尾部的结点
 	for(int i = 0; i < n; i++) {
-		p = (Node *) malloc(sizeof(Node));
+		p = (LinkList) malloc(sizeof(Node));
 		p->data = rand() % 100 +1;
 		tail->next = p; // 将表尾终端结点的指针指向新结点
 		tail = p; // 将当前的新结点定义为表尾终端结点
@@ -1234,11 +1234,10 @@ void CreateListTail(LinkList *L, int n) {
 
 ```c
 /*在L中第i个结点位置之前(即在第i个位置插入数据)插入新的数据元素e，L的长度加1*/
-bool ListInsert(LinkList *L, int i, int e) {
-	int j;
+bool ListInsert(LinkList &L, int i, int e) {
+	int j = 1; // j代表有数据的第一个结点
 	LinkList p,s;
-	p = *L; // p指向头结点
-	j = 1; // j代表有数据的第一个结点的
+	p = L; // p指向头结点
 	while(p && j < i) { // 当j指向i时，p刚好指向i结点的前一个位置，遍历寻找i-1个结点
 		p = p->next;
 		++j;
@@ -1270,14 +1269,13 @@ bool ListInsert(LinkList *L, int i, int e) {
 
 ```c
 /*删除L的第i个结点，并用e返回其值，L的长度减1*/
-bool ListDelete(LinkList *L, int i) {
+bool ListDelete(LinkList &L, int i) {
 	LinkList p,q;
-	int j;
-	p = *L;
-	j = 1;
-	while(p->next && j < i) { // 遍历寻找第i-1个结点
+	int j=1;
+	p = L;
+	while(p && j < i) { // 遍历寻找第i-1个结点
 		p = p->next;
-		++j;
+		j++;
 	}
 	if (!(p->next) || j > i)
 		return false;
@@ -1288,8 +1286,6 @@ bool ListDelete(LinkList *L, int i) {
 	free(q);
 	return true;
 }
-
-
 ```
 
 ## 共用体
