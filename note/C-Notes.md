@@ -1092,42 +1092,64 @@ struct tag {
 
 在一般情况下，**tag、member-list、variable-list** 这 3 部分至少要出现 2 个。
 
-示例代码：
+1. 先声明结构体类型在定义结构体变量
 
-```c
-//此声明声明了拥有3个成员的结构体，分别为整型的a，字符型的b和双精度的c
-//同时又声明了结构体变量s1
-//这个结构体并没有标明其标签
-struct 
-{
-    int a;
-    char b;
-    double c;
-} s1;
- 
-//此声明声明了拥有3个成员的结构体，分别为整型的a，字符型的b和双精度的c
-//结构体的标签被命名为SIMPLE,没有声明变量
-struct SIMPLE
-{
-    int a;
-    char b;
-    double c;
-};
-//用SIMPLE标签的结构体，另外声明了变量t1、t2、t3
-struct SIMPLE t1, t2[20], *t3;
- 
-//也可以用typedef创建新类型
-typedef struct
-{
-    int a;
-    char b;
-    double c; 
-} Simple2;
-//现在可以用Simple2作为类型声明新的结构体变量
-Simple2 u1, u2[20], *u3;
-```
+   ```c
+   // 此声明声明了拥有3个成员的结构体，分别为整型的a，字符型的b和双精度的c
+   // 结构体的标签被命名为SIMPLE,没有声明变量
+   struct SIMPLE
+   {
+       int a;
+       char b;
+       double c;
+   };
+   //用SIMPLE标签的结构体，另外声明了变量t1、t2、t3
+   struct SIMPLE t1, t2[20], *t3;
+   ```
 
-结构体的成员可以包含其他结构体，也可以包含指向自己结构体类型的指针。
+2. 在定义结构体类型的同时定义结构体变量
+
+   ```c
+   // 此声明声明了拥有3个成员的结构体，分别为整型的a，字符型的b和双精度的c
+   // 同时又声明了结构体类型Student，结构体变量s1
+   // 这个结构体的结构体名为Student
+   struct Student
+   {
+       int a;
+       char b;
+       double c;
+   } s1;
+   ```
+
+3. 直接定义结构体类型变量
+
+   ```c
+   // 此声明声明了拥有3个成员的结构体，分别为整型的a，字符型的b和双精度的c
+   // 同时又声明了结构体变量s1
+   // 这个结构体并没有结构体类型名
+   struct 
+   {
+       int a;
+       char b;
+       double c;
+   } s1;
+   ```
+
+4. 用typedef创建新类型
+
+   ```c
+   //也可以用typedef创建新类型
+   typedef struct
+   {
+       int a;
+       char b;
+       double c; 
+   } Simple2;
+   //现在可以用Simple2作为类型声明新的结构体变量
+   Simple2 u1, u2[20], *u3;
+   ```
+
+   结构体的成员可以包含其他结构体，也可以包含指向自己结构体类型的指针。
 
 ### 初始化
 
