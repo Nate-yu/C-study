@@ -654,7 +654,32 @@ p = balance;
 
 # 函数
 
+## 函数基本概念
+
 > 函数**声明**告诉编译器函数的名称、返回类型和参数。函数**定义**提供了函数的实际主体。
+
+函数参数计算顺序：从右向左进行
+
+```c
+#include "header.h" 
+
+void func(int a, int b, int c) {
+	printf("a=%d, b=%d, c=%d",a,b,c);
+}
+
+int main(int argc, char const *argv[])
+{
+	int i = 2;
+	func(i,i++,i--);
+	return 0; 
+}
+```
+
+当执行`func(i,i++,i--);`时，先计算i--，返回2，i=1；再计算i++，返回1，i=2；最后计算i，返回2。最终输出结果为：
+
+```markdown
+a=2, b=1, c=2
+```
 
 ## 定义函数
 
