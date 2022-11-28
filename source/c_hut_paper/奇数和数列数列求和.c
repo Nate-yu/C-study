@@ -3,16 +3,16 @@
 int main(int argc, char const *argv[])
 {
 	int Sum = 0, sum = 0, n = 1;
-	while(Sum < 20000) {
+	while(1) {
 		sum = 0;
 		for(int i = 1; i <= n; i++) {
 			sum += i*2 - 1;
 		}
 		Sum += sum;
+		if(Sum >= 20000) break;
 		n++;
 	}
-	/* 由于Sum的值大于20000时while结束，此时n是Sum最大值所对应的n加1。
-	   而Sum大于20000后，还有一个n++，所以n需要减2 */
-	printf("n = %d\n",n-2);
+	/* 由于Sum的值大于20000时while结束，此时n是Sum最大值所对应的n加1。*/
+	printf("n = %d\n",n-1);
 	return 0;
 }
