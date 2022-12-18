@@ -23,6 +23,6 @@ int main(int argc, char const *argv[])
 		}
 	}
 
-	printf("The total of words in string: %d\n",count);
+	printf("字符串中单词总数为: %d\n",count);
 	return 0;
 }
